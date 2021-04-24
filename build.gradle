@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+group 'net.chewett.github.gradle-packaged-jar-example'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.6'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': "net.chewett.github.gradlepackagedjarexample.GradleImportTest"
+    }
+    archiveBaseName.set(project.name + '-bad')
+}
+
+task goodjar (type: Jar) {
+    manifest {
+        attributes "Main-Class": "net.chewett.github.gradlepackagedjarexample.GradleImportTest"
+    }
+    archiveBaseName.set(project.name + '-good')
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } with jar
+}
+
+test {
+    useJUnitPlatform()
+}
