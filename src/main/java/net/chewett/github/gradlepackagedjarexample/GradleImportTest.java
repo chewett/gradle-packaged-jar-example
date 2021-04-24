@@ -7,7 +7,7 @@ public class GradleImportTest {
 
     /**
      * Simple main function that loads the google Gson library and converts it to an array of ints.
-     * @param args
+     * @param args No arguments for this simple program, not used.
      */
     public static void main(String[] args) {
         Gson gson = new Gson();
